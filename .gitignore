@@ -1,0 +1,13 @@
+# Licensed Bloomberg data must never be published.
+*.xlsx
+*.xls
+*.csv
+*.pdf
+cache/
+data/
+.venv/
+__pycache__/
+.pytest_cache/
+.DS_Store
+screenshots/
+sample/
