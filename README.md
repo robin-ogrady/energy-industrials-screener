@@ -8,6 +8,19 @@ results in an interactive Streamlit dashboard and a printable 4-page PDF report.
 > snapshot for exploring companies: not a backtest, not a prediction, and not a
 > trading system.
 
+## Backtest result: not supported
+
+A [pre-registered backtest](https://github.com/robin-ogrady/energy-industrials-backtest)
+tested whether this score, computed only from information available at each
+month-end, ranks S&P 1500 Energy and Industrials stocks by next-month return
+(2016 to September 2026, delisted companies included, rules published before
+the decisive runs). **Verdict under the pre-registered rule: not supported.**
+In the final period (2023 to September 2026) the rank correlation passed
+(IC +0.023, p = 0.046), but the top-minus-bottom quintile gap after costs did
+not (+0.57% per month, p = 0.078); both had to pass. This is not evidence that
+the score works or predicts returns. The supply chain group (Linked companies)
+has no history and was not tested.
+
 ![Rankings page (sample data)](docs/img/rankings.png)
 
 ## What it does

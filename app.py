@@ -116,6 +116,7 @@ def reset_weights():
 def sidebar():
     sb = st.sidebar
     sb.caption(NOTE)
+    sb.caption("Backtest: not supported. [Details](%s)" % make_report.BACKTEST_URL)
     sb.subheader("Factor weights")
     for g in GROUPS:
         st.session_state.setdefault("w_" + g, float(DEFAULT_W[g]))
@@ -199,6 +200,7 @@ def page_rankings():
     d, feats, result, _ = APP
     st.title("Rankings")
     st.warning(NOTE)
+    st.info("**Backtest result:** %s [Rules, code and verdict](%s)." % (make_report.BACKTEST_NOTE, make_report.BACKTEST_URL))
     st.caption(noise_note(result))
     t = ranking_table(feats, result)
     shown = apply_filters(t)

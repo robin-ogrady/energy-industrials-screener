@@ -51,4 +51,5 @@ Energy & Industrials Supply Chain Screener. Data: `bloomberg_data_pull_wide_v12_
 - **Sentiment** uses only days with news (no news is not zero). Under 5 news days in 30 = left out. Headline scoring (Loughran-McDonald) is off by default and never enters the score unless switched on.
 - **Supply chain** links are each core name's top 20 only and mostly Bloomberg estimates, and many linked companies are outside the universe, so Linked companies has limited coverage.
 - **Commodity betas**, supplier dependence and news attention are shown on the dashboard but not scored.
+- **Backtest:** A pre-registered backtest (S&P 1500 Energy and Industrials, 2016 to September 2026) did not support this score: its link to next-month returns was too weak to rule out luck (top minus bottom fifth after costs, p = 0.078). The supply chain part could not be tested. Rules, code and verdict: https://github.com/robin-ogrady/energy-industrials-backtest
 - Scores are not stretched to fill 1 to 10, so they cluster near the middle. Gaps of 0.1 to 0.2 points between neighbors are noise: read the rank band and the drivers, not the decimals.

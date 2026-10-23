@@ -43,6 +43,11 @@ OUT_CSV = config.PROJECT_DIR / "scores.csv"
 OUT_MD = config.PROJECT_DIR / "methodology.md"
 
 NOTE = "Not validated. A screening tool, not a trading signal."
+# Result of the pre-registered backtest (github.com/robin-ogrady/energy-industrials-backtest).
+BACKTEST_URL = "https://github.com/robin-ogrady/energy-industrials-backtest"
+BACKTEST_NOTE = ("A pre-registered backtest (S&P 1500 Energy and Industrials, 2016 to September 2026) did not support "
+                 "this score: its link to next-month returns was too weak to rule out luck (top minus bottom fifth "
+                 "after costs, p = 0.078). The supply chain part could not be tested.")
 NOISE = "Gaps of 0.1 to 0.2 points between neighbors are noise: read the rank band and the drivers, not the decimals."
 
 
@@ -332,7 +337,9 @@ def page1(t_all, shown, d, result, filters, options):
     box.setStyle(TableStyle([("BOX", (0, 0), (-1, -1), 0.8, colors.black),
                              ("TOPPADDING", (0, 0), (-1, -1), 4), ("BOTTOMPADDING", (0, 0), (-1, -1), 4)]))
     out.append(box)
-    out.append(Spacer(1, 7))
+    out.append(Spacer(1, 3))
+    out.append(Paragraph("<b>Backtest result:</b> " + BACKTEST_NOTE.replace("&", "&amp;"), ST["small"]))
+    out.append(Spacer(1, 6))
 
     top = shown.head(15)
     bottom = shown.tail(5) if len(shown) > 20 else shown.iloc[0:0]
@@ -467,6 +474,7 @@ def page4(t_all, feats, result, d, options, short_version=False):
         "scores, no backtest, and no claim that it predicts returns.", ST["body"]))
     out.append(Spacer(1, 6))
     items = [
+        "<b>Backtest:</b> " + BACKTEST_NOTE.replace("&", "&amp;") + " Details: " + BACKTEST_URL.replace("https://", "") + ".",
         "<b>Excluded:</b> %d tickers with no price data, probably acquired, merged or renamed: %s." % (
             len(q["excluded"]), ", ".join(network.short(x) for x in q["excluded"]["ticker"])),
         "<b>Broken fields dropped:</b> %s (100%% errors). Inventory-to-sales from quarterly data replaces inventory turnover."
@@ -498,7 +506,7 @@ def page4(t_all, feats, result, d, options, short_version=False):
         "and some peer groups mix very different businesses.",
     ]
     if short_version:
-        items = items[:2] + items[3:5] + items[6:7]
+        items = items[:3] + items[4:6] + items[7:8]
     for x in items:
         out.append(Paragraph(x, ST["bullet"], bulletText="•"))
         out.append(Spacer(1, 3))
@@ -643,6 +651,7 @@ def write_methodology(result, options=None, path=OUT_MD):
         "- **Supply chain** links are each core name's top 20 only and mostly Bloomberg estimates, and many linked "
         "companies are outside the universe, so Linked companies has limited coverage.",
         "- **Commodity betas**, supplier dependence and news attention are shown on the dashboard but not scored.",
+        "- **Backtest:** " + BACKTEST_NOTE + " Rules, code and verdict: " + BACKTEST_URL,
         "- Scores are not stretched to fill 1 to 10, so they cluster near the middle. " + NOISE,
     ]
     path.write_text("\n".join(lines) + "\n")
